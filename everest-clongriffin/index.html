@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Everest — Digital Audit</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0c0c0c; --surface: #141414; --surface2: #1c1c1c; --border: #2a2a2a;
+      --text: #f0f0f0; --muted: #888; --accent: #e8ff47; --red: #ff4d4d; --green: #4dff91;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+    nav { padding: 20px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(12,12,12,0.95); backdrop-filter: blur(10px); z-index: 100; }
+    .nav-brand { font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
+    .nav-cta { background: var(--accent); color: #000; font-size: 12px; font-weight: 700; padding: 8px 18px; text-decoration: none; letter-spacing: 0.5px; }
+    .hero { padding: 80px 40px 60px; max-width: 800px; margin: 0 auto; }
+    .hero-tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 5px 12px; margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { font-size: 17px; color: #aaa; max-width: 560px; line-height: 1.7; }
+    .hero-meta { margin-top: 32px; display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-stat { display: flex; flex-direction: column; gap: 4px; }
+    .hero-stat .val { font-size: 22px; font-weight: 700; }
+    .hero-stat .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
+    .section { padding: 60px 40px; max-width: 800px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 32px; display: flex; align-items: center; gap: 10px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .section h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .section .lead { font-size: 16px; color: #aaa; margin-bottom: 32px; }
+    .findings { display: flex; flex-direction: column; gap: 16px; }
+    .finding { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); padding: 24px 28px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; }
+    .finding-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .finding-desc { font-size: 13px; color: #999; line-height: 1.6; }
+    .finding-evidence { font-size: 11px; color: var(--red); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 10px; display: flex; align-items: center; gap: 6px; }
+    .finding-evidence::before { content: '↳'; }
+    .finding-badge { font-size: 10px; font-weight: 700; padding: 4px 10px; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; background: rgba(255,77,77,0.1); color: var(--red); border: 1px solid rgba(255,77,77,0.3); }
+    .finding-badge.high { background: rgba(255,165,0,0.1); color: #ffa500; border-color: rgba(255,165,0,0.3); }
+    .cost-block { background: var(--surface); border: 1px solid var(--border); padding: 32px; margin-top: 16px; }
+    .cost-block p { font-size: 15px; color: #aaa; line-height: 1.8; }
+    .cost-block strong { color: var(--text); }
+    .cost-number { font-size: 42px; font-weight: 700; color: var(--red); letter-spacing: -2px; margin: 16px 0 8px; }
+    .cost-sub { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .actions { display: flex; flex-direction: column; gap: 12px; }
+    .action { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start; }
+    .action-num { width: 40px; height: 40px; background: var(--accent); color: #000; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .action-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .action-desc { font-size: 13px; color: #999; line-height: 1.5; }
+    .action-timing { font-size: 11px; color: var(--accent); font-weight: 600; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
+    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .roi-card { background: var(--surface); border: 1px solid var(--border); padding: 24px; }
+    .roi-card.featured { background: var(--accent); border-color: var(--accent); grid-column: 1 / -1; }
+    .roi-card.featured .roi-val { color: #000; }
+    .roi-card.featured .roi-lbl { color: rgba(0,0,0,0.6); }
+    .roi-card.featured .roi-desc { color: rgba(0,0,0,0.7); }
+    .roi-val { font-size: 36px; font-weight: 700; letter-spacing: -1.5px; color: var(--accent); }
+    .roi-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+    .roi-desc { font-size: 13px; color: #999; margin-top: 4px; line-height: 1.5; }
+    .math-block { background: var(--surface2); border: 1px solid var(--border); padding: 24px 28px; margin-top: 16px; font-size: 13px; color: #999; line-height: 2; }
+    .math-block .math-line { display: flex; justify-content: space-between; }
+    .math-block .math-line.total { color: var(--accent); font-weight: 700; font-size: 15px; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
+    .math-block .math-line span:last-child { font-weight: 600; color: var(--text); }
+    .math-block .math-line.total span:last-child { color: var(--accent); }
+    .guarantee { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 32px; margin-top: 16px; }
+    .guarantee h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+    .guarantee p { font-size: 14px; color: #aaa; line-height: 1.7; }
+    .guarantee strong { color: var(--text); }
+    .cta-section { background: var(--accent); padding: 60px 40px; }
+    .cta-inner { max-width: 800px; margin: 0 auto; }
+    .cta-section h2 { font-size: 32px; font-weight: 700; color: #000; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .cta-section p { font-size: 16px; color: rgba(0,0,0,0.65); margin-bottom: 32px; max-width: 500px; }
+    .cta-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+    .cta-btn { display: inline-block; padding: 14px 28px; font-size: 14px; font-weight: 700; text-decoration: none; letter-spacing: 0.3px; }
+    .cta-btn.primary { background: #000; color: var(--accent); }
+    .cta-btn.secondary { background: transparent; color: #000; border: 2px solid #000; }
+    .cta-contact { margin-top: 24px; font-size: 13px; color: rgba(0,0,0,0.55); }
+    .cta-contact strong { color: rgba(0,0,0,0.8); }
+    footer { padding: 24px 40px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); }
+    .footer-brand { font-weight: 700; color: var(--text); font-size: 13px; }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; } .hero { padding: 48px 20px 40px; } .section { padding: 40px 20px; }
+      .divider { margin: 0 20px; } .roi-grid { grid-template-columns: 1fr; } .roi-card.featured { grid-column: 1; }
+      .cta-section { padding: 48px 20px; } footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-brand">Coverline</div>
+    <a href="https://wa.me/353852122038" class="nav-cta">Get in touch →</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-tag">Digital Audit · April 2026</div>
+    <h1>Everest is the only<br><span>Nepalese kitchen in Dublin 13 — and almost nobody knows it.</span></h1>
+    <p>4.7 stars, 192 reviews, authentic Nepalese cuisine in an area with zero competition. But search "Nepalese restaurant Dublin" tonight — Everest doesn't appear. And every delivery order is paying 30–35% to a platform instead of keeping it.</p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <span class="val">4.7 ⭐</span>
+        <span class="lbl">Google rating</span>
+      </div>
+      <div class="hero-stat">
+        <span class="val" style="color:var(--red)">3</span>
+        <span class="lbl">Critical gaps found</span>
+      </div>
+      <div class="hero-stat">
+        <span class="val" style="color:var(--accent)">€1,560+</span>
+        <span class="lbl">Year-1 revenue potential</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">01 — What I found</div>
+    <h2>A rare niche with no competition — and no presence where people look.</h2>
+    <p class="lead">Nepalese cuisine in Dublin 13 is genuinely rare. Nobody else is doing it. That's an enormous advantage — but only if people can find you.</p>
+
+    <div class="findings">
+
+      <div class="finding">
+        <div>
+          <div class="finding-title">Not appearing for "Nepalese restaurant Dublin"</div>
+          <div class="finding-desc">I searched "Nepalese restaurant Dublin", "Nepalese food Dublin 13", "Indian restaurant Clongriffin". Everest doesn't appear in the first page of results for any of these. Someone in Raheny, Portmarnock, or Clongriffin searching for exactly what you cook is going to whoever shows up first — which isn't you.</div>
+          <div class="finding-evidence">Nobody searching for Nepalese food in Dublin is finding Everest</div>
+        </div>
+        <div class="finding-badge">Critical</div>
+      </div>
+
+      <div class="finding">
+        <div>
+          <div class="finding-title">Heavily delivery-dependent — 30–35% commission per order</div>
+          <div class="finding-desc">Just Eat, Deliveroo, and DinnerIsUp are capturing most of the business. Every order through those platforms costs 30–35% commission. A dine-in table of 3 people ordering starters, mains, and drinks at full margin is worth more than 5 delivery orders after commission. The site has a reservation system — it just isn't being used.</div>
+          <div class="finding-evidence">30–35% of every delivery order leaving the business permanently</div>
+        </div>
+        <div class="finding-badge">Critical</div>
+      </div>
+
+      <div class="finding">
+        <div>
+          <div class="finding-title">445 Instagram followers — audience not matching the reputation</div>
+          <div class="finding-desc">192 people wrote Google reviews. 445 follow on Instagram. These numbers should be reversed — a 4.7-star restaurant with a genuinely unique menu should have a much larger digital following than its review count. The food is remarkable. The digital footprint doesn't reflect that yet.</div>
+          <div class="finding-evidence">Reputation built in person hasn't transferred to an owned online audience</div>
+        </div>
+        <div class="finding-badge high">High</div>
+      </div>
+
+    </div>
+
+    <div class="cost-block" style="margin-top:32px;">
+      <p>If <strong>30% of current delivery revenue</strong> could be shifted to dine-in over 12 months, that's the same turnover at a <strong>30–35% higher margin</strong> — without serving a single additional customer.</p>
+      <div class="cost-number">35%</div>
+      <div class="cost-sub">of every delivery order that could stay in the business as dine-in margin</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">02 — What I'd do</div>
+    <h2>Own the niche. In 30 days.</h2>
+    <p class="lead">Three specific actions. Your only cost is €300 in ad spend. My time is free for the first month.</p>
+
+    <div class="actions">
+      <div class="action">
+        <div class="action-num">1</div>
+        <div>
+          <div class="action-title">Google Ads — "Nepalese restaurant Dublin" is completely unclaimed</div>
+          <div class="action-desc">Nobody in Dublin is running Google Ads for Nepalese cuisine right now. Not one competitor. You'd own "Nepalese restaurant Dublin", "Nepalese food Dublin 13", "Indian restaurant Clongriffin", "momos Dublin" from day one. A niche this specific with zero ad competition is extremely rare — and it won't stay that way forever.</div>
+          <div class="action-timing">Day 1–7</div>
+        </div>
+      </div>
+      <div class="action">
+        <div class="action-num">2</div>
+        <div>
+          <div class="action-title">Dine-in activation — shift delivery covers to full-margin table service</div>
+          <div class="action-desc">The reservation system is already on the site. I'd drive the Google Ads traffic directly to it. Same customers who currently order for delivery — but now booking a table, ordering more, and generating full margin instead of 65% after commission. The goal isn't more customers. It's better margin on the same customers.</div>
+          <div class="action-timing">Day 7</div>
+        </div>
+      </div>
+      <div class="action">
+        <div class="action-num">3</div>
+        <div>
+          <div class="action-title">Guest list — own the relationship without a platform taking a cut</div>
+          <div class="action-desc">Every dine-in customer goes into a list you own permanently. When you want to fill a slow Tuesday, you send a message directly — no delivery platform, no algorithm, no commission. The people who love your momos and Himalayan curry become an audience you can reach any time.</div>
+          <div class="action-timing">Day 1–7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">03 — Expected results</div>
+    <h2>The numbers.</h2>
+    <p class="lead">Based on Google Ads benchmarks for restaurants (WordStream, 2025) and niche cuisine conversion rates.</p>
+
+    <div class="roi-grid">
+      <div class="roi-card">
+        <div class="roi-lbl">Month 1 — New dine-in covers</div>
+        <div class="roi-val">~20</div>
+        <div class="roi-desc">Average CPC for restaurants: €1.90. Conversion rate: 7%. €300 budget = ~158 clicks = 11+ tracked bookings + walk-ins from ads.</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-lbl">Cost per new cover</div>
+        <div class="roi-val">~€15</div>
+        <div class="roi-desc">€300 divided by 20 new covers. At full dine-in margin — not 65% after paying a delivery platform 35%.</div>
+      </div>
+      <div class="roi-card featured">
+        <div class="roi-lbl">Year-1 value from this cohort</div>
+        <div class="roi-val">€1,560</div>
+        <div class="roi-desc">20 new dine-in customers × 3 return visits × €26 average spend. At full margin — without 35% going to a delivery platform on every order.</div>
+      </div>
+    </div>
+
+    <div class="math-block">
+      <div class="math-line"><span>Ad spend (Month 1)</span><span>€300</span></div>
+      <div class="math-line"><span>New dine-in covers acquired</span><span>20</span></div>
+      <div class="math-line"><span>Average spend per visit</span><span>€26</span></div>
+      <div class="math-line"><span>Average return visits (Year 1)</span><span>× 3</span></div>
+      <div class="math-line total"><span>Year-1 revenue from this cohort</span><span>€1,560</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">04 — The guarantee</div>
+    <h2>Zero risk. Literally.</h2>
+    <p class="lead">I only get paid when the system is proven to work.</p>
+
+    <div class="guarantee">
+      <h3>If you don't get 20 new dine-in covers in 30 days —<br>I return the full €300.</h3>
+      <p style="margin-top:16px;">
+        My time costs you <strong>nothing</strong> for the first month. Your only investment is €300 in ad spend.<br><br>
+        If the campaigns don't bring in at least <strong>20 new dine-in covers</strong> in 30 days, you get every cent back. No questions asked.<br><br>
+        You keep the guest list and all tracking either way. <strong>The risk is entirely mine.</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to own the niche?</h2>
+      <p>15 minutes. I'll walk through exactly what I'd do for Everest — no pitch, no pressure. You decide if it makes sense.</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/353852122038?text=Hi%20Eduardo%2C%20I%20saw%20the%20audit%20for%20Everest%20and%20I%27m%20interested%20in%20a%20quick%20chat." class="cta-btn primary">WhatsApp me →</a>
+        <a href="mailto:Heineck96@hotmail.com?subject=Everest%20Clongriffin%20Audit&body=Hi%20Eduardo%2C%20I%20saw%20the%20audit%20and%20would%20like%20to%20chat." class="cta-btn secondary">Send an email</a>
+      </div>
+      <div class="cta-contact">
+        <strong>Eduardo · Coverline</strong> &nbsp;·&nbsp; +353 085 212 2038 &nbsp;·&nbsp; Heineck96@hotmail.com
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Coverline</div>
+      <div style="margin-top:4px;">Growth System for independent restaurants</div>
+    </div>
+    <div>Prepared for Everest · Main Street, Clongriffin, Dublin 13</div>
+  </footer>
+
+</body>
+</html>
