@@ -3,273 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stone Korea — Digital Audit</title>
+  <title>Stone Korea — Online Presence Review | Coverline</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg: #0c0c0c; --surface: #141414; --surface2: #1c1c1c; --border: #1f1f1f; --text: #f0f0f0; --muted: #555; --accent: #e8ff47; --red: #ff4d4d; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+    a { color: inherit; text-decoration: none; }
 
-    :root {
-      --bg: #0c0c0c;
-      --surface: #141414;
-      --surface2: #1c1c1c;
-      --border: #2a2a2a;
-      --text: #f0f0f0;
-      --muted: #888;
-      --accent: #e8ff47;
-      --red: #ff4d4d;
-      --green: #4dff91;
-    }
+    nav { padding: 20px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(12,12,12,0.96); backdrop-filter: blur(12px); z-index: 100; }
+    .nav-brand { font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+    .nav-tag { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    nav {
-      padding: 20px 40px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      background: rgba(12,12,12,0.95);
-      backdrop-filter: blur(10px);
-      z-index: 100;
-    }
-    .nav-brand { font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
-    .nav-cta { background: var(--accent); color: #000; font-size: 12px; font-weight: 700; padding: 8px 18px; text-decoration: none; letter-spacing: 0.5px; }
-
-    .hero {
-      padding: 80px 40px 60px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .hero-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 5px 12px;
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -1px;
-      margin-bottom: 20px;
-    }
+    .hero { padding: 80px 40px 64px; max-width: 780px; margin: 0 auto; }
+    .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(34px, 5vw, 54px); font-weight: 900; line-height: 1.05; letter-spacing: -.03em; margin-bottom: 24px; }
     .hero h1 span { color: var(--accent); }
-    .hero p {
-      font-size: 17px;
-      color: #aaa;
-      max-width: 560px;
-      line-height: 1.7;
-    }
-    .hero-meta {
-      margin-top: 32px;
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .hero-stat { display: flex; flex-direction: column; gap: 4px; }
-    .hero-stat .val { font-size: 22px; font-weight: 700; }
-    .hero-stat .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .hero-divider { width: 48px; height: 3px; background: var(--accent); border-radius: 2px; margin-bottom: 24px; }
+    .hero p { font-size: 17px; color: #666; max-width: 560px; line-height: 1.75; }
 
-    .divider { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
 
-    .section { padding: 60px 40px; max-width: 800px; margin: 0 auto; }
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .section h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
-    .section .lead { font-size: 16px; color: #aaa; margin-bottom: 32px; }
+    .section { padding: 64px 40px; max-width: 780px; margin: 0 auto; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .section h2 { font-size: 28px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 8px; }
+    .section-divider { width: 36px; height: 3px; background: var(--accent); border-radius: 2px; margin-bottom: 36px; }
+    .section .lead { font-size: 15px; color: #555; line-height: 1.75; margin-bottom: 32px; max-width: 580px; }
 
-    .findings { display: flex; flex-direction: column; gap: 16px; }
-    .finding {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--red);
-      padding: 24px 28px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: start;
-    }
-    .finding-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .finding-desc { font-size: 13px; color: #999; line-height: 1.6; }
-    .finding-evidence {
-      font-size: 11px;
-      color: var(--red);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .finding-evidence::before { content: '↳'; }
-    .finding-badge {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 4px 10px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      background: rgba(255,77,77,0.1);
-      color: var(--red);
-      border: 1px solid rgba(255,77,77,0.3);
-    }
-    .finding-badge.high {
-      background: rgba(255,165,0,0.1);
-      color: #ffa500;
-      border-color: rgba(255,165,0,0.3);
-    }
+    /* CREDENTIAL BAR */
+    .cred-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 28px; margin-bottom: 40px; display: flex; align-items: center; gap: 20px; }
+    .cred-stars { font-size: 28px; font-weight: 900; color: var(--accent); }
+    .cred-text strong { font-size: 14px; font-weight: 700; color: var(--text); display: block; margin-bottom: 2px; }
+    .cred-text span { font-size: 13px; color: var(--muted); }
 
-    .cost-block {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 32px;
-      margin-top: 16px;
-    }
-    .cost-block p { font-size: 15px; color: #aaa; line-height: 1.8; }
-    .cost-block strong { color: var(--text); }
-    .cost-number {
-      font-size: 42px;
-      font-weight: 700;
-      color: var(--red);
-      letter-spacing: -2px;
-      margin: 16px 0 8px;
-    }
-    .cost-sub { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    /* FINDINGS */
+    .findings { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .finding { padding: 28px 32px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 48px 1fr; gap: 20px; }
+    .finding:last-child { border-bottom: none; }
+    .finding-num { font-size: 13px; font-weight: 800; color: var(--accent); padding-top: 2px; }
+    .finding-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .finding-desc { font-size: 14px; color: #555; line-height: 1.7; }
 
-    .actions { display: flex; flex-direction: column; gap: 12px; }
-    .action {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 20px 24px;
-      display: grid;
-      grid-template-columns: 40px 1fr;
-      gap: 16px;
-      align-items: start;
-    }
-    .action-num {
-      width: 40px; height: 40px;
-      background: var(--accent);
-      color: #000;
-      font-size: 14px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .action-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .action-desc { font-size: 13px; color: #999; line-height: 1.5; }
-    .action-timing { font-size: 11px; color: var(--accent); font-weight: 600; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
+    /* FLYWHEEL */
+    .flywheel { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .fw-step { padding: 28px 32px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: start; }
+    .fw-step:last-child { border-bottom: none; }
+    .fw-left { padding-top: 2px; }
+    .fw-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); background: #151515; display: inline-block; padding: 4px 12px; border-radius: 100px; margin-bottom: 8px; }
+    .fw-title { font-size: 17px; font-weight: 800; color: var(--text); }
+    .fw-right p { font-size: 14px; color: #555; line-height: 1.7; margin-top: 4px; }
 
-    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .roi-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 24px;
-    }
-    .roi-card.featured {
-      background: var(--accent);
-      border-color: var(--accent);
-      grid-column: 1 / -1;
-    }
-    .roi-card.featured .roi-val { color: #000; }
-    .roi-card.featured .roi-lbl { color: rgba(0,0,0,0.6); }
-    .roi-card.featured .roi-desc { color: rgba(0,0,0,0.7); }
-    .roi-val { font-size: 36px; font-weight: 700; letter-spacing: -1.5px; color: var(--accent); }
-    .roi-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
-    .roi-desc { font-size: 13px; color: #999; margin-top: 4px; line-height: 1.5; }
+    /* CONTRAST BLOCK */
+    .contrast { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 40px 36px; margin-bottom: 32px; }
+    .contrast-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .contrast-row:last-child { border-bottom: none; }
+    .contrast-label { font-size: 13px; color: var(--muted); }
+    .contrast-val { font-size: 18px; font-weight: 800; }
+    .contrast-val.bad { color: var(--red); }
+    .contrast-val.good { color: var(--accent); }
 
-    .math-block {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 24px 28px;
-      margin-top: 16px;
-      font-size: 13px;
-      color: #999;
-      line-height: 2;
-    }
-    .math-block .math-line { display: flex; justify-content: space-between; }
-    .math-block .math-line.total { color: var(--accent); font-weight: 700; font-size: 15px; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
-    .math-block .math-line span:last-child { font-weight: 600; color: var(--text); }
-    .math-block .math-line.total span:last-child { color: var(--accent); }
+    /* GUARANTEE */
+    .guarantee { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 40px 36px; text-align: center; }
+    .guarantee-num { font-size: 72px; font-weight: 900; color: var(--accent); letter-spacing: -.04em; line-height: 1; margin-bottom: 8px; }
+    .guarantee-label { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .guarantee p { font-size: 14px; color: #444; line-height: 1.75; max-width: 440px; margin: 0 auto 16px; }
+    .guarantee-fine { font-size: 12px; color: #333; }
 
-    .guarantee {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      padding: 32px;
-      margin-top: 16px;
-    }
-    .guarantee h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
-    .guarantee p { font-size: 14px; color: #aaa; line-height: 1.7; }
-    .guarantee strong { color: var(--text); }
+    /* CTA */
+    .cta-block { background: var(--accent); border-radius: 14px; padding: 48px 40px; text-align: center; margin: 64px 0 0; }
+    .cta-block h3 { font-size: 28px; font-weight: 900; color: #0c0c0c; margin-bottom: 12px; letter-spacing: -.02em; }
+    .cta-block p { font-size: 15px; color: rgba(12,12,12,.6); margin-bottom: 28px; }
+    .cta-btn { display: inline-block; background: #0c0c0c; color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 14px 32px; border-radius: 100px; }
 
-    .cta-section {
-      background: var(--accent);
-      padding: 60px 40px;
-    }
-    .cta-inner { max-width: 800px; margin: 0 auto; }
-    .cta-section h2 { font-size: 32px; font-weight: 700; color: #000; letter-spacing: -0.5px; margin-bottom: 12px; }
-    .cta-section p { font-size: 16px; color: rgba(0,0,0,0.65); margin-bottom: 32px; max-width: 500px; }
-    .cta-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-    .cta-btn {
-      display: inline-block;
-      padding: 14px 28px;
-      font-size: 14px;
-      font-weight: 700;
-      text-decoration: none;
-      letter-spacing: 0.3px;
-    }
-    .cta-btn.primary { background: #000; color: var(--accent); }
-    .cta-btn.secondary { background: transparent; color: #000; border: 2px solid #000; }
-    .cta-contact { margin-top: 24px; font-size: 13px; color: rgba(0,0,0,0.55); }
-    .cta-contact strong { color: rgba(0,0,0,0.8); }
-
-    footer {
-      padding: 24px 40px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .footer-brand { font-weight: 700; color: var(--text); font-size: 13px; }
+    footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex; justify-content: space-between; align-items: center; max-width: 780px; margin: 0 auto; }
+    .footer-logo { font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+    .footer-meta { font-size: 11px; color: #2a2a2a; text-align: right; line-height: 1.7; }
 
     @media (max-width: 600px) {
       nav { padding: 16px 20px; }
-      .hero { padding: 48px 20px 40px; }
-      .section { padding: 40px 20px; }
-      .divider { margin: 0 20px; }
-      .roi-grid { grid-template-columns: 1fr; }
-      .roi-card.featured { grid-column: 1; }
-      .cta-section { padding: 48px 20px; }
-      footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+      .hero { padding: 48px 20px 48px; }
+      .section { padding: 48px 20px; }
+      hr { margin: 0 20px; }
+      .fw-step { grid-template-columns: 1fr; gap: 8px; }
+      .finding { grid-template-columns: 32px 1fr; }
+      footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
@@ -277,180 +94,161 @@
 
   <nav>
     <div class="nav-brand">Coverline</div>
-    <a href="https://wa.me/353852122038" class="nav-cta">Get in touch →</a>
+    <div class="nav-tag">Online Presence Review · Stone Korea</div>
   </nav>
 
+  <!-- HERO -->
   <div class="hero">
-    <div class="hero-tag">Digital Audit · April 2026</div>
-    <h1>Stone Korea<br><span>has a dine-in problem.</span></h1>
-    <p>The Irish Examiner called it the best Korean fried chicken in Dublin. I searched for Korean restaurants in Stoneybatter and found three things preventing that reputation from turning into covers.</p>
-    <div class="hero-meta">
-      <div class="hero-stat">
-        <span class="val">4.5 ⭐</span>
-        <span class="lbl">Google rating</span>
-      </div>
-      <div class="hero-stat">
-        <span class="val" style="color:var(--red)">3</span>
-        <span class="lbl">Critical gaps found</span>
-      </div>
-      <div class="hero-stat">
-        <span class="val" style="color:var(--accent)">€1,500+</span>
-        <span class="lbl">Year-1 revenue potential</span>
-      </div>
-    </div>
+    <div class="hero-tag">Prepared for Stone Korea · Stoneybatter, Dublin 7</div>
+    <h1>Hi Benny —<br>there are people searching for <span>exactly what you do</span>. They're not finding you.</h1>
+    <div class="hero-divider"></div>
+    <p>The Irish Examiner called Stone Korea the best Korean fried chicken in Dublin. The food is exceptional — the product isn't the problem. The problem is what happens before a new customer ever walks through the door.</p>
   </div>
 
-  <hr class="divider">
+  <hr>
 
+  <!-- FINDINGS -->
   <div class="section">
-    <div class="section-label">01 — What I found</div>
-    <h2>Three gaps costing you dine-in covers every week.</h2>
-    <p class="lead">255 reviews and a rave from the Irish Examiner — but the system to turn that reputation into dine-in bookings doesn't exist yet.</p>
+    <div class="section-label">What we found</div>
+    <h2>Three gaps. All fixable.</h2>
+    <div class="section-divider"></div>
+
+    <div class="cred-bar">
+      <div class="cred-stars">4.5★</div>
+      <div class="cred-text">
+        <strong>255 Google reviews · Irish Examiner recommended</strong>
+        <span>The reputation is there. The system to turn it into new customers isn't.</span>
+      </div>
+    </div>
 
     <div class="findings">
-
       <div class="finding">
+        <div class="finding-num">01</div>
         <div>
-          <div class="finding-title">No way to book a table</div>
-          <div class="finding-desc">The website has online ordering for delivery — but no reservation system. Someone who wants to plan a dinner out, bring friends, celebrate an occasion — they can't book a table at Stone Korea. That customer goes to a competitor who lets them book online at 10pm on a Sunday.</div>
-          <div class="finding-evidence">Every planned-occasion customer goes elsewhere</div>
+          <div class="finding-title">New customers searching for Korean food in Dublin 7 aren't finding Stone Korea</div>
+          <div class="finding-desc">Someone in Stoneybatter, Smithfield, or the Liberties who searches "Korean restaurant Dublin 7" or "Korean food near me" tonight will find other options first. Stone Korea has the reviews, the press, and the product — but it's not appearing at the moment someone decides they want Korean food. Those searches happen every day. Right now, most of them end somewhere else.</div>
         </div>
-        <div class="finding-badge">Critical</div>
       </div>
-
       <div class="finding">
+        <div class="finding-num">02</div>
         <div>
-          <div class="finding-title">No menu or prices on the site</div>
-          <div class="finding-desc">A new customer who finds Stone Korea on Google can't see what you serve or what it costs before deciding. That's decision friction — the kind that sends someone to a competitor's site where the menu is front and centre. The food is excellent. It just isn't visible.</div>
-          <div class="finding-evidence">First impression creates doubt instead of appetite</div>
+          <div class="finding-title">Customers come in, love it, and leave — with no way for Stone Korea to reach them again</div>
+          <div class="finding-desc">Every person who eats at Stone Korea and loves it is a potential regular. But when they walk out, that relationship ends. There's no contact list, no way to send them a message. If Tuesday is quiet, there's nobody to call. The only way to get them back is to hope they remember on their own — or pay Deliveroo 35% to reach them through a platform.</div>
         </div>
-        <div class="finding-badge">Critical</div>
       </div>
-
       <div class="finding">
+        <div class="finding-num">03</div>
         <div>
-          <div class="finding-title">Not appearing for "Korean restaurant Dublin 7"</div>
-          <div class="finding-desc">Someone in Stoneybatter or the Liberties searching for Korean food tonight won't find Stone Korea in the first page of results. The Irish Examiner press coverage isn't surfacing. The 255 reviews aren't surfacing. Nobody searching is finding you.</div>
-          <div class="finding-evidence">High-intent searches going to competitors with zero track record</div>
-        </div>
-        <div class="finding-badge high">High</div>
-      </div>
-
-    </div>
-
-    <div class="cost-block" style="margin-top:32px;">
-      <p>Delivery platforms take <strong>30–35% commission</strong> on every order. One dine-in customer at full margin is worth more than two delivery orders after commission. Right now there's no system pulling people through the door.</p>
-      <div class="cost-number">~€300</div>
-      <div class="cost-sub">lost to delivery commissions on every 10 orders that could have been dine-in</div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <div class="section">
-    <div class="section-label">02 — What I'd do</div>
-    <h2>Fix the gaps. In 30 days.</h2>
-    <p class="lead">Three specific actions. Your only cost is €300 in ad spend. My time is free for the first month.</p>
-
-    <div class="actions">
-      <div class="action">
-        <div class="action-num">1</div>
-        <div>
-          <div class="action-title">Booking integration — table reservations online</div>
-          <div class="action-desc">A simple reservation system so anyone who finds Stone Korea can book a table instantly. No phone call required. This captures the planned-occasion customer you're currently losing — and shifts the balance from delivery commission to full-margin dine-in.</div>
-          <div class="action-timing">Day 1–3</div>
-        </div>
-      </div>
-      <div class="action">
-        <div class="action-num">2</div>
-        <div>
-          <div class="action-title">Google Ads — "best Korean fried chicken in Dublin"</div>
-          <div class="action-desc">Nobody is running Google Ads for Korean food in Dublin 7 or Stoneybatter right now. Using the Irish Examiner quote as the hook — "best Korean fried chicken in Dublin" — you'd own that search from day one. High intent, low competition, immediate results.</div>
-          <div class="action-timing">Day 7</div>
-        </div>
-      </div>
-      <div class="action">
-        <div class="action-num">3</div>
-        <div>
-          <div class="action-title">Guest list — own the relationship with dine-in customers</div>
-          <div class="action-desc">Every dine-in customer gets added to a simple list you own. Instead of hoping they come back on their own — or paying Deliveroo 35% to reach them — you can send a direct message on a slow Tuesday. No algorithm. No commission. You own the relationship.</div>
-          <div class="action-timing">Day 1–7</div>
+          <div class="finding-title">The Irish Examiner credential stops working after the week it runs</div>
+          <div class="finding-desc">Press coverage has a shelf life. "Best Korean fried chicken in Dublin" is a genuinely powerful hook — but it only reaches people when the article is live. The customers who read it and thought "I should try that" have mostly forgotten by now. That credential needs to be working every day, not just the week it published.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <hr class="divider">
+  <hr>
 
+  <!-- THE PLAN -->
   <div class="section">
-    <div class="section-label">03 — Expected results</div>
-    <h2>The numbers.</h2>
-    <p class="lead">Based on Google Ads benchmarks for restaurants (WordStream, 2025) and standard dine-in customer behaviour.</p>
+    <div class="section-label">The Plan</div>
+    <h2>Three steps. In order.</h2>
+    <div class="section-divider"></div>
+    <p class="lead">We don't touch what's already working. Stone Korea has the product, the reviews, and the Google Business listing. We build what's missing on top of that.</p>
 
-    <div class="roi-grid">
-      <div class="roi-card">
-        <div class="roi-lbl">Month 1 — New dine-in covers</div>
-        <div class="roi-val">~20</div>
-        <div class="roi-desc">Average CPC for restaurants: €1.90. Conversion rate: 7%. €300 budget = ~158 clicks = 11+ tracked bookings + walk-ins from ads.</div>
+    <div class="flywheel">
+      <div class="fw-step">
+        <div class="fw-left">
+          <div class="fw-label">01 · Attract</div>
+          <div class="fw-title">Bring in new customers who don't know Stone Korea yet</div>
+        </div>
+        <div class="fw-right">
+          <p>Appear at the top when someone searches Korean restaurant Dublin 7, Korean fried chicken Dublin, or Korean food Stoneybatter. Using the Irish Examiner credential as the hook — so it works every day, not just the week it published. These are high-intent searches with low competition. The people searching have already decided they want Korean food. We just need to make sure Stone Korea is the answer they find.</p>
+        </div>
       </div>
-      <div class="roi-card">
-        <div class="roi-lbl">Cost per new cover</div>
-        <div class="roi-val">~€15</div>
-        <div class="roi-desc">€300 divided by 20 new dine-in customers. Vs 30–35% delivery commission on every order — forever.</div>
+      <div class="fw-step">
+        <div class="fw-left">
+          <div class="fw-label">02 · Capture</div>
+          <div class="fw-title">Start building a list of customers who've been in</div>
+        </div>
+        <div class="fw-right">
+          <p>Every customer who books through the Google listing or walks in becomes a name on a list Stone Korea owns. A simple opt-in at booking or at the table — name and email, nothing more. Over time, this list becomes the most valuable asset in the business: a direct line to people who already love what you make, with no platform taking a cut to reach them.</p>
+        </div>
       </div>
-      <div class="roi-card featured">
-        <div class="roi-lbl">Year-1 value from this cohort</div>
-        <div class="roi-val">€1,500</div>
-        <div class="roi-desc">20 new dine-in customers × 3 return visits × €25 average spend. At full margin — not 65% after delivery commission.</div>
+      <div class="fw-step">
+        <div class="fw-left">
+          <div class="fw-label">03 · Bring back</div>
+          <div class="fw-title">Fill the quiet Tuesday with people who already love Stone Korea</div>
+        </div>
+        <div class="fw-right">
+          <p>When it's a slow midweek night, send one message to the list. "Come in tonight — we'll take care of you." No algorithm deciding who sees it. No 35% commission to Deliveroo. The people on that list have already been in, already loved it — they just need a nudge. That's the difference between a quiet Tuesday and a full one.</p>
+        </div>
       </div>
-    </div>
-
-    <div class="math-block">
-      <div class="math-line"><span>Ad spend (Month 1)</span><span>€300</span></div>
-      <div class="math-line"><span>New dine-in covers</span><span>20</span></div>
-      <div class="math-line"><span>Average spend per cover</span><span>€25</span></div>
-      <div class="math-line"><span>Average return visits (Year 1)</span><span>× 3</span></div>
-      <div class="math-line total"><span>Year-1 revenue from this cohort</span><span>€1,500</span></div>
     </div>
   </div>
 
-  <hr class="divider">
+  <hr>
 
+  <!-- CONTRAST BLOCK -->
   <div class="section">
-    <div class="section-label">04 — The guarantee</div>
-    <h2>Zero risk. Literally.</h2>
-    <p class="lead">I only get paid when the system is proven to work.</p>
+    <div class="section-label">The alternative</div>
+    <h2>What happens without a list.</h2>
+    <div class="section-divider"></div>
+
+    <div class="contrast">
+      <div class="contrast-row">
+        <span class="contrast-label">Reach a past customer directly</span>
+        <span class="contrast-val bad">Impossible</span>
+      </div>
+      <div class="contrast-row">
+        <span class="contrast-label">Fill a table on a slow Tuesday</span>
+        <span class="contrast-val bad">Wait and hope</span>
+      </div>
+      <div class="contrast-row">
+        <span class="contrast-label">Deliveroo commission on every order</span>
+        <span class="contrast-val bad">35%</span>
+      </div>
+      <div class="contrast-row">
+        <span class="contrast-label">Commission on a message to your own list</span>
+        <span class="contrast-val good">0%</span>
+      </div>
+      <div class="contrast-row">
+        <span class="contrast-label">New customers from search finding Stone Korea</span>
+        <span class="contrast-val good">Every day</span>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- GUARANTEE -->
+  <div class="section">
+    <div class="section-label">The Offer</div>
+    <h2>What we're proposing.</h2>
+    <div class="section-divider"></div>
 
     <div class="guarantee">
-      <h3>If you don't get 20 new dine-in covers in 30 days —<br>I return the full €300.</h3>
-      <p style="margin-top:16px;">
-        My time costs you <strong>nothing</strong> for the first month. Your only investment is €300 in ad spend.<br><br>
-        If those campaigns don't bring in at least <strong>20 new dine-in covers</strong> attributable to the ads, you get every cent back. No questions asked.<br><br>
-        You keep the booking system, the guest list, and all tracking setup either way. <strong>The risk is entirely mine.</strong>
-      </p>
+      <div class="guarantee-num">20</div>
+      <div class="guarantee-label">New covers in 30 days</div>
+      <p>We start with a free audit — Benny sees exactly what we found. If Stone Korea wants to move forward, everything is running within 7 days. If 20 new covers don't come in within 30 days, we return the €300 in full. No questions.</p>
+      <div class="guarantee-fine">Your only cost: €300 in spend. Our time is free for the first month.</div>
     </div>
   </div>
 
-  <div class="cta-section">
-    <div class="cta-inner">
-      <h2>Ready to fill the tables?</h2>
-      <p>15 minutes. I'll walk through exactly what I'd do for Stone Korea — no pitch, no pressure. You decide if it makes sense.</p>
-      <div class="cta-buttons">
-        <a href="https://wa.me/353852122038?text=Hi%20Eduardo%2C%20I%20saw%20the%20audit%20for%20Stone%20Korea%20and%20I%27m%20interested%20in%20a%20quick%20chat." class="cta-btn primary">WhatsApp me →</a>
-        <a href="mailto:Heineck96@hotmail.com?subject=Stone%20Korea%20Audit&body=Hi%20Eduardo%2C%20I%20saw%20the%20audit%20and%20would%20like%20to%20chat." class="cta-btn secondary">Send an email</a>
-      </div>
-      <div class="cta-contact">
-        <strong>Eduardo · Coverline</strong> &nbsp;·&nbsp; +353 085 212 2038 &nbsp;·&nbsp; Heineck96@hotmail.com
-      </div>
+  <!-- CTA -->
+  <div style="max-width:780px;margin:0 auto;padding:0 40px 80px;">
+    <div class="cta-block">
+      <h3>Worth a conversation?</h3>
+      <p>No pitch. No obligation. DM us on Instagram and we'll go from there.</p>
+      <a class="cta-btn" href="https://www.instagram.com/coverline.dublin/">→ DM @coverline.dublin</a>
     </div>
   </div>
 
   <footer>
-    <div>
-      <div class="footer-brand">Coverline</div>
-      <div style="margin-top:4px;">Growth System for independent restaurants</div>
+    <div class="footer-logo">Coverline</div>
+    <div class="footer-meta">
+      Independent Dublin restaurants only<br>
+      coverline.netlify.app
     </div>
-    <div>Prepared for Stone Korea · Stoneybatter, Dublin 7</div>
   </footer>
 
 </body>
