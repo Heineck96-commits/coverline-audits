@@ -3,86 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vada — Digital Audit</title>
+  <title>Vada — Online Presence Review | Coverline</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #0c0c0c; --surface: #141414; --surface2: #1c1c1c; --border: #2a2a2a;
-      --text: #f0f0f0; --muted: #888; --accent: #e8ff47; --red: #ff4d4d; --green: #4dff91;
-    }
+    :root { --bg: #0c0c0c; --surface: #141414; --surface2: #1c1c1c; --border: #1f1f1f; --text: #f0f0f0; --muted: #555; --accent: #e8ff47; --red: #ff4d4d; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
-    nav { padding: 20px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(12,12,12,0.95); backdrop-filter: blur(10px); z-index: 100; }
-    .nav-brand { font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
-    .nav-cta { background: var(--accent); color: #000; font-size: 12px; font-weight: 700; padding: 8px 18px; text-decoration: none; letter-spacing: 0.5px; }
-    .hero { padding: 80px 40px 60px; max-width: 800px; margin: 0 auto; }
-    .hero-tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 5px 12px; margin-bottom: 24px; }
-    .hero h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; }
+    a { color: inherit; text-decoration: none; }
+
+    nav { padding: 20px 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(12,12,12,0.96); backdrop-filter: blur(12px); z-index: 100; }
+    .nav-brand { font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+    .nav-tag { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+
+    .hero { padding: 80px 40px 64px; max-width: 780px; margin: 0 auto; }
+    .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(34px, 5vw, 54px); font-weight: 900; line-height: 1.05; letter-spacing: -.03em; margin-bottom: 24px; }
     .hero h1 span { color: var(--accent); }
-    .hero p { font-size: 17px; color: #aaa; max-width: 560px; line-height: 1.7; }
-    .hero-meta { margin-top: 32px; display: flex; gap: 24px; flex-wrap: wrap; }
-    .hero-stat { display: flex; flex-direction: column; gap: 4px; }
-    .hero-stat .val { font-size: 22px; font-weight: 700; }
-    .hero-stat .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-    .divider { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
-    .section { padding: 60px 40px; max-width: 800px; margin: 0 auto; }
-    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 32px; display: flex; align-items: center; gap: 10px; }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .section h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
-    .section .lead { font-size: 16px; color: #aaa; margin-bottom: 32px; }
-    .findings { display: flex; flex-direction: column; gap: 16px; }
-    .finding { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); padding: 24px 28px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; }
-    .finding-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .finding-desc { font-size: 13px; color: #999; line-height: 1.6; }
-    .finding-evidence { font-size: 11px; color: var(--red); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 10px; display: flex; align-items: center; gap: 6px; }
-    .finding-evidence::before { content: '↳'; }
-    .finding-badge { font-size: 10px; font-weight: 700; padding: 4px 10px; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; background: rgba(255,77,77,0.1); color: var(--red); border: 1px solid rgba(255,77,77,0.3); }
-    .finding-badge.high { background: rgba(255,165,0,0.1); color: #ffa500; border-color: rgba(255,165,0,0.3); }
-    .michelin-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 32px; margin-top: 16px; }
-    .michelin-block p { font-size: 15px; color: #aaa; line-height: 1.8; }
-    .michelin-block strong { color: var(--text); }
-    .michelin-quote { font-size: 20px; font-weight: 600; color: var(--accent); letter-spacing: -0.5px; margin: 16px 0 8px; line-height: 1.4; }
-    .michelin-source { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-    .actions { display: flex; flex-direction: column; gap: 12px; }
-    .action { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start; }
-    .action-num { width: 40px; height: 40px; background: var(--accent); color: #000; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .action-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .action-desc { font-size: 13px; color: #999; line-height: 1.5; }
-    .action-timing { font-size: 11px; color: var(--accent); font-weight: 600; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
-    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .roi-card { background: var(--surface); border: 1px solid var(--border); padding: 24px; }
-    .roi-card.featured { background: var(--accent); border-color: var(--accent); grid-column: 1 / -1; }
-    .roi-card.featured .roi-val { color: #000; }
-    .roi-card.featured .roi-lbl { color: rgba(0,0,0,0.6); }
-    .roi-card.featured .roi-desc { color: rgba(0,0,0,0.7); }
-    .roi-val { font-size: 36px; font-weight: 700; letter-spacing: -1.5px; color: var(--accent); }
-    .roi-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
-    .roi-desc { font-size: 13px; color: #999; margin-top: 4px; line-height: 1.5; }
-    .math-block { background: var(--surface2); border: 1px solid var(--border); padding: 24px 28px; margin-top: 16px; font-size: 13px; color: #999; line-height: 2; }
-    .math-block .math-line { display: flex; justify-content: space-between; }
-    .math-block .math-line.total { color: var(--accent); font-weight: 700; font-size: 15px; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
-    .math-block .math-line span:last-child { font-weight: 600; color: var(--text); }
-    .math-block .math-line.total span:last-child { color: var(--accent); }
-    .guarantee { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 32px; margin-top: 16px; }
-    .guarantee h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
-    .guarantee p { font-size: 14px; color: #aaa; line-height: 1.7; }
-    .guarantee strong { color: var(--text); }
-    .cta-section { background: var(--accent); padding: 60px 40px; }
-    .cta-inner { max-width: 800px; margin: 0 auto; }
-    .cta-section h2 { font-size: 32px; font-weight: 700; color: #000; letter-spacing: -0.5px; margin-bottom: 12px; }
-    .cta-section p { font-size: 16px; color: rgba(0,0,0,0.65); margin-bottom: 32px; max-width: 500px; }
-    .cta-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-    .cta-btn { display: inline-block; padding: 14px 28px; font-size: 14px; font-weight: 700; text-decoration: none; letter-spacing: 0.3px; }
-    .cta-btn.primary { background: #000; color: var(--accent); }
-    .cta-btn.secondary { background: transparent; color: #000; border: 2px solid #000; }
-    .cta-contact { margin-top: 24px; font-size: 13px; color: rgba(0,0,0,0.55); }
-    .cta-contact strong { color: rgba(0,0,0,0.8); }
-    footer { padding: 24px 40px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); }
-    .footer-brand { font-weight: 700; color: var(--text); font-size: 13px; }
+    .hero-divider { width: 48px; height: 3px; background: var(--accent); border-radius: 2px; margin-bottom: 24px; }
+    .hero p { font-size: 17px; color: #666; max-width: 560px; line-height: 1.75; }
+
+    hr { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
+
+    .section { padding: 64px 40px; max-width: 780px; margin: 0 auto; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .section h2 { font-size: 28px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 8px; }
+    .section-divider { width: 36px; height: 3px; background: var(--accent); border-radius: 2px; margin-bottom: 36px; }
+    .section .lead { font-size: 15px; color: #555; line-height: 1.75; margin-bottom: 32px; max-width: 580px; }
+
+    .cred-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 28px; margin-bottom: 40px; display: flex; align-items: center; gap: 20px; }
+    .cred-icon { font-size: 28px; font-weight: 900; color: var(--accent); }
+    .cred-text strong { font-size: 14px; font-weight: 700; color: var(--text); display: block; margin-bottom: 2px; }
+    .cred-text span { font-size: 13px; color: var(--muted); }
+
+    .findings { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .finding { padding: 28px 32px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 48px 1fr; gap: 20px; }
+    .finding:last-child { border-bottom: none; }
+    .finding-num { font-size: 13px; font-weight: 800; color: var(--accent); padding-top: 2px; }
+    .finding-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .finding-desc { font-size: 14px; color: #555; line-height: 1.7; }
+
+    .flywheel { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .fw-step { padding: 28px 32px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: start; }
+    .fw-step:last-child { border-bottom: none; }
+    .fw-left { padding-top: 2px; }
+    .fw-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); background: #151515; display: inline-block; padding: 4px 12px; border-radius: 100px; margin-bottom: 8px; }
+    .fw-title { font-size: 17px; font-weight: 800; color: var(--text); }
+    .fw-right p { font-size: 14px; color: #555; line-height: 1.7; margin-top: 4px; }
+
+    .contrast { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 40px 36px; margin-bottom: 32px; }
+    .contrast-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .contrast-row:last-child { border-bottom: none; }
+    .contrast-label { font-size: 13px; color: var(--muted); }
+    .contrast-val { font-size: 18px; font-weight: 800; }
+    .contrast-val.bad { color: var(--red); }
+    .contrast-val.good { color: var(--accent); }
+
+    .pilot-intro { font-size: 15px; color: #555; line-height: 1.75; margin-bottom: 32px; max-width: 580px; }
+    .pilot-intro strong { color: var(--text); }
+    .system-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+    .system-item { padding: 24px 28px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 110px 1fr; gap: 16px; }
+    .system-item:last-child { border-bottom: none; }
+    .system-step-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); padding-top: 2px; }
+    .system-desc { font-size: 14px; color: #555; line-height: 1.7; }
+    .system-desc strong { color: var(--text); }
+
+    .guarantee { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 40px 36px; text-align: center; }
+    .guarantee-num { font-size: 72px; font-weight: 900; color: var(--accent); letter-spacing: -.04em; line-height: 1; margin-bottom: 8px; }
+    .guarantee-label { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .guarantee p { font-size: 14px; color: #444; line-height: 1.75; max-width: 440px; margin: 0 auto 16px; }
+    .guarantee-fine { font-size: 12px; color: #333; }
+
+    .cta-block { background: var(--accent); border-radius: 14px; padding: 48px 40px; text-align: center; margin: 64px 0 0; }
+    .cta-block h3 { font-size: 28px; font-weight: 900; color: #0c0c0c; margin-bottom: 12px; letter-spacing: -.02em; }
+    .cta-block p { font-size: 15px; color: rgba(12,12,12,.6); margin-bottom: 28px; }
+    .cta-btn { display: inline-block; background: #0c0c0c; color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 14px 32px; border-radius: 100px; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex; justify-content: space-between; align-items: center; max-width: 780px; margin: 0 auto; }
+    .footer-logo { font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+    .footer-meta { font-size: 11px; color: #2a2a2a; text-align: right; line-height: 1.7; }
+
     @media (max-width: 600px) {
-      nav { padding: 16px 20px; } .hero { padding: 48px 20px 40px; } .section { padding: 40px 20px; }
-      .divider { margin: 0 20px; } .roi-grid { grid-template-columns: 1fr; } .roi-card.featured { grid-column: 1; }
-      .cta-section { padding: 48px 20px; } footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+      nav { padding: 16px 20px; }
+      .hero { padding: 48px 20px 48px; }
+      .section { padding: 48px 20px; }
+      hr { margin: 0 20px; }
+      .fw-step { grid-template-columns: 1fr; gap: 8px; }
+      .finding { grid-template-columns: 32px 1fr; }
+      .system-item { grid-template-columns: 1fr; gap: 4px; }
+      footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
@@ -90,180 +98,178 @@
 
   <nav>
     <div class="nav-brand">Coverline</div>
-    <a href="https://wa.me/353852122038" class="nav-cta">Get in touch →</a>
+    <div class="nav-tag">Online Presence Review · Vada</div>
   </nav>
 
+  <!-- HERO -->
   <div class="hero">
-    <div class="hero-tag">Digital Audit · April 2026</div>
-    <h1>Vada is in the<br><span>Michelin Guide. Nobody searching Google can find it.</span></h1>
-    <p>The Irish Times called it a place Dublin could do with a dozen more of. The Michelin Guide listed it. But search "Michelin restaurant Dublin 7" tonight — Vada doesn't appear. And three evenings a week sit completely empty.</p>
-    <div class="hero-meta">
-      <div class="hero-stat">
-        <span class="val">Michelin</span>
-        <span class="lbl">Guide listed</span>
-      </div>
-      <div class="hero-stat">
-        <span class="val" style="color:var(--red)">3</span>
-        <span class="lbl">Critical gaps found</span>
-      </div>
-      <div class="hero-stat">
-        <span class="val" style="color:var(--accent)">€3,000+</span>
-        <span class="lbl">Year-1 revenue potential</span>
-      </div>
-    </div>
+    <div class="hero-tag">Prepared for Vada · Stoneybatter, Dublin 7</div>
+    <h1>Hi Sarah —<br>being in the Michelin Guide is a credential most Dublin restaurants <span>would give anything for.</span></h1>
+    <div class="hero-divider"></div>
+    <p>The Irish Times called it a place Dublin could do with a dozen more of. The Michelin listing is real. But search "Michelin restaurant Dublin 7" tonight — Vada doesn't appear. And every customer who comes in once has no way to hear from you again.</p>
   </div>
 
-  <hr class="divider">
+  <hr>
 
+  <!-- FINDINGS -->
   <div class="section">
-    <div class="section-label">01 — What I found</div>
-    <h2>The most powerful credential in hospitality — unused where it matters most.</h2>
-    <p class="lead">A Michelin listing is what most Dublin restaurants would give anything for. It's not being used to capture the people actively searching for exactly that credential tonight.</p>
+    <div class="section-label">What we found</div>
+    <h2>Three gaps. All fixable.</h2>
+    <div class="section-divider"></div>
+
+    <div class="cred-bar">
+      <div class="cred-icon">M</div>
+      <div class="cred-text">
+        <strong>Michelin Guide listed · Irish Times recommended</strong>
+        <span>The most powerful credentials in hospitality — not being used where people are actively searching.</span>
+      </div>
+    </div>
 
     <div class="findings">
-
       <div class="finding">
+        <div class="finding-num">01</div>
         <div>
-          <div class="finding-title">Not appearing for "Michelin restaurant Dublin 7"</div>
-          <div class="finding-desc">I searched "Michelin restaurant Dublin 7", "Michelin listed Dublin", "sustainable dining Dublin", "fine dining Stoneybatter". Vada doesn't appear in the first page of results for any of these. Someone in Ranelagh looking for a special occasion dinner, someone from outside Dublin searching for a Michelin experience — they're not finding Vada. They're finding someone else.</div>
-          <div class="finding-evidence">The Michelin listing exists — but search doesn't surface it</div>
+          <div class="finding-title">Nobody searching for a Michelin restaurant in Dublin 7 finds Vada</div>
+          <div class="finding-desc">Someone planning a special occasion who searches "Michelin restaurant Dublin 7" or "fine dining Stoneybatter" tonight won't find Vada. The credential is more powerful than almost anything else in the city — but it's not surfacing where people are actively searching for it. Every night, people planning exactly the kind of dinner Vada delivers are ending up somewhere else.</div>
         </div>
-        <div class="finding-badge">Critical</div>
       </div>
-
       <div class="finding">
+        <div class="finding-num">02</div>
         <div>
-          <div class="finding-title">Site built on Wix — no tracking, flying blind</div>
-          <div class="finding-desc">The website is on Wix without GA4 or Meta Pixel installed. That means there's no data on how many people visit, where they come from, how many click through from the Michelin Guide, or why they don't book. Every marketing decision is being made without any information about whether it's working. The tracking fix alone changes this fundamentally.</div>
-          <div class="finding-evidence">Zero visibility into what's driving — or not driving — bookings</div>
+          <div class="finding-title">Every OpenTable booking is capturing a reservation — but not building a list Vada owns</div>
+          <div class="finding-desc">Every booking through OpenTable is a customer Vada has earned. But those contact details live in OpenTable's system — not in a list Sarah can reach directly. The customer who came in for a birthday dinner and loved it — there's no way to send them a message when the menu changes, when there's a new seasonal dish, or when there's a quiet midweek evening to fill.</div>
         </div>
-        <div class="finding-badge">Critical</div>
       </div>
-
       <div class="finding">
+        <div class="finding-num">03</div>
         <div>
-          <div class="finding-title">Dinner only Friday and Saturday — 3 empty evenings per week</div>
-          <div class="finding-desc">Monday through Thursday evenings: no dinner service. That's roughly 12 nights of zero dinner revenue per month. The demand for a Michelin-level experience in Dublin 7 on a Wednesday evening exists — it's just not finding Vada. Wednesday and Thursday evening diners looking for something special have nowhere to go that matches what Vada is.</div>
-          <div class="finding-evidence">12+ dinner evenings per month with zero revenue potential</div>
-        </div>
-        <div class="finding-badge high">High</div>
-      </div>
-
-    </div>
-
-    <div class="michelin-block">
-      <div class="michelin-quote">"Dublin could do with a dozen more brilliant local places like this."</div>
-      <div class="michelin-source">Irish Times · October 2025</div>
-      <p style="margin-top:16px;">That credential is sitting in an article from October 2025. The Google search for "Michelin restaurant Dublin 7" happens every day. <strong>Ads keep that press working permanently</strong> — not just the week it was published.</p>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <div class="section">
-    <div class="section-label">02 — What I'd do</div>
-    <h2>Activate the Michelin credential. In 30 days.</h2>
-    <p class="lead">Three specific actions. Your only cost is €300 in ad spend. My time is free for the first month.</p>
-
-    <div class="actions">
-      <div class="action">
-        <div class="action-num">1</div>
-        <div>
-          <div class="action-title">Install tracking — finally know where your customers come from</div>
-          <div class="action-desc">10 lines of code added to the Wix site: GA4 and Meta Pixel. From day one you'll know how many people visit, which pages they look at, whether they came from the Michelin Guide, from Instagram, or from Google. Every future decision becomes data-driven instead of a guess. This alone is worth the conversation.</div>
-          <div class="action-timing">Day 1</div>
-        </div>
-      </div>
-      <div class="action">
-        <div class="action-num">2</div>
-        <div>
-          <div class="action-title">Google Ads — "Michelin-listed restaurant Dublin 7" using the Irish Times hook</div>
-          <div class="action-desc">Targeting: "Michelin restaurant Dublin 7", "sustainable dining Dublin", "dinner Dublin 7 Wednesday", "fine dining Stoneybatter". These are people planning a special occasion — high intent, high average spend, high conversion rate. Using the Irish Times quote and the Michelin credential as creative. Nobody else in Dublin 7 can run this ad.</div>
-          <div class="action-timing">Day 7</div>
-        </div>
-      </div>
-      <div class="action">
-        <div class="action-num">3</div>
-        <div>
-          <div class="action-title">Guest list — turn Friday dinner guests into Wednesday bookings</div>
-          <div class="action-desc">A simple capture at the OpenTable booking stage so every customer goes into a list you own. The goal isn't volume — it's the right customers. When you want to test a Wednesday evening service, you message people who've already eaten at Vada and loved it. No algorithm. No mass marketing. Exactly the audience that fits.</div>
-          <div class="action-timing">Day 1–7</div>
+          <div class="finding-title">Every customer who discovers Vada through the Michelin listing comes once — then disappears</div>
+          <div class="finding-desc">The Michelin Guide and the Irish Times drive discovery. But there's no system to turn that discovery into a lasting relationship. People come in, have an exceptional experience, leave — and there's no direct line back. The list is what turns a one-time Michelin visitor into a regular. Without it, every new customer is starting from zero.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <hr class="divider">
+  <hr>
 
+  <!-- THE PLAN -->
   <div class="section">
-    <div class="section-label">03 — Expected results</div>
-    <h2>The numbers.</h2>
-    <p class="lead">Based on Google Ads benchmarks for fine dining restaurants and special occasion diner behaviour.</p>
+    <div class="section-label">The Plan</div>
+    <h2>Three steps. In order.</h2>
+    <div class="section-divider"></div>
+    <p class="lead">We don't touch what's already working. Vada has the product, the credentials, and the OpenTable booking system. We build what's missing on top of that.</p>
 
-    <div class="roi-grid">
-      <div class="roi-card">
-        <div class="roi-lbl">Month 1 — New covers</div>
-        <div class="roi-val">~20</div>
-        <div class="roi-desc">Average CPC for restaurants: €1.90. Conversion rate: 7%. €300 budget = ~158 clicks. Special occasion diners convert at a higher rate — they're searching with intent to book.</div>
+    <div class="flywheel">
+      <div class="fw-step">
+        <div class="fw-left">
+          <div class="fw-label">01 · Attract</div>
+          <div class="fw-title">Bring in new customers searching for exactly what Vada is</div>
+        </div>
+        <div class="fw-right">
+          <p>Appear at the top when someone searches Michelin restaurant Dublin 7, sustainable restaurant Stoneybatter, or fine dining Dublin 7. Nobody else in Dublin 7 can run this message. Using the Michelin credential and the Irish Times quote as the hook — so that press works every day, not just the week it was published. These are people planning a special occasion and searching for exactly what Vada is.</p>
+        </div>
       </div>
-      <div class="roi-card">
-        <div class="roi-lbl">Cost per new cover</div>
-        <div class="roi-val">~€15</div>
-        <div class="roi-desc">€300 divided by 20 new customers. These are people who specifically searched for a Michelin or quality dining experience — they arrive already sold on the concept.</div>
+      <div class="fw-step">
+        <div class="fw-left">
+          <div class="fw-label">02 · Capture</div>
+          <div class="fw-title">Turn every OpenTable booking into a relationship Vada owns</div>
+        </div>
+        <div class="fw-right">
+          <p>Every booking through OpenTable already captures a name and email. We make sure those details flow into a contact list that belongs to Vada permanently — not to a booking platform. No new tools. No new process for the customer. Just making sure that every reservation is building something that Sarah owns and can use directly.</p>
+        </div>
       </div>
-      <div class="roi-card featured">
-        <div class="roi-lbl">Year-1 value from this cohort</div>
-        <div class="roi-val">€3,000</div>
-        <div class="roi-desc">20 new customers × 3 return visits × €50 average spend. Michelin diners return — especially with a guest list that reaches them directly for special occasions.</div>
+      <div class="fw-step">
+        <div class="fw-left">
+          <div class="fw-label">03 · Bring back</div>
+          <div class="fw-title">Reach past diners directly — without going through anyone else</div>
+        </div>
+        <div class="fw-right">
+          <p>When there's a new seasonal menu, a quiet midweek evening to fill, or a reason to invite someone back — send one message to the list. The people on it have already experienced Vada and loved it. No platform between Sarah and her customers. No algorithm deciding who sees the message. That's what a direct relationship with your own diners looks like.</p>
+        </div>
       </div>
-    </div>
-
-    <div class="math-block">
-      <div class="math-line"><span>Ad spend (Month 1)</span><span>€300</span></div>
-      <div class="math-line"><span>New covers acquired</span><span>20</span></div>
-      <div class="math-line"><span>Average spend per visit</span><span>€50</span></div>
-      <div class="math-line"><span>Average return visits (Year 1)</span><span>× 3</span></div>
-      <div class="math-line total"><span>Year-1 revenue from this cohort</span><span>€3,000</span></div>
     </div>
   </div>
 
-  <hr class="divider">
+  <hr>
 
+  <!-- CONTRAST -->
   <div class="section">
-    <div class="section-label">04 — The guarantee</div>
-    <h2>Zero risk. Literally.</h2>
-    <p class="lead">I only get paid when the system is proven to work.</p>
+    <div class="section-label">The alternative</div>
+    <h2>What happens without the system.</h2>
+    <div class="section-divider"></div>
+
+    <div class="contrast">
+      <div class="contrast-row">
+        <span class="contrast-label">Reach a past diner directly</span>
+        <span class="contrast-val bad">Impossible</span>
+      </div>
+      <div class="contrast-row">
+        <span class="contrast-label">Michelin credential working in search today</span>
+        <span class="contrast-val bad">No</span>
+      </div>
+      <div class="contrast-row">
+        <span class="contrast-label">Irish Times quote working every day</span>
+        <span class="contrast-val bad">Expired</span>
+      </div>
+      <div class="contrast-row">
+        <span class="contrast-label">Commission on a message to your own list</span>
+        <span class="contrast-val good">0%</span>
+      </div>
+      <div class="contrast-row">
+        <span class="contrast-label">New customers from search finding Vada</span>
+        <span class="contrast-val good">Every day</span>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- PILOT / OFFER -->
+  <div class="section">
+    <div class="section-label">The Offer</div>
+    <h2>We're starting with two restaurants.</h2>
+    <div class="section-divider"></div>
+
+    <p class="pilot-intro">Coverline is a pilot. We're selecting <strong>two restaurants from a small group</strong> to start — not because we can't handle more, but because the first clients get something different. They get our complete focus to build the system properly and document exactly what works for an independent Dublin restaurant.</p>
+
+    <div class="system-list">
+      <div class="system-item">
+        <span class="system-step-label">Search presence</span>
+        <span class="system-desc"><strong>Vada appears when someone searches Michelin restaurant Dublin 7 tonight.</strong> Not eventually — within 7 days. Using the Michelin listing and the Irish Times credential so the press works permanently, not just the week it was published.</span>
+      </div>
+      <div class="system-item">
+        <span class="system-step-label">Contact list</span>
+        <span class="system-desc"><strong>Every OpenTable booking builds a list Vada owns permanently.</strong> Month 1: 30 people on it. Month 6: 200. Month 12: 500 people who've already experienced Vada — reachable directly, no platform between Sarah and her diners.</span>
+      </div>
+      <div class="system-item">
+        <span class="system-step-label">Bring-back</span>
+        <span class="system-desc"><strong>One message to the list fills a quiet midweek evening.</strong> No algorithm. No commission. The list compounds over time — it's the most valuable thing the system builds, and it belongs to Vada.</span>
+      </div>
+    </div>
 
     <div class="guarantee">
-      <h3>If you don't get 20 new covers in 30 days —<br>I return the full €300.</h3>
-      <p style="margin-top:16px;">
-        My time costs you <strong>nothing</strong> for the first month. Your only investment is €300 in ad spend.<br><br>
-        If the campaigns don't bring in at least <strong>20 new covers</strong> in 30 days, you get every cent back. No questions asked.<br><br>
-        The tracking installation and guest list are yours permanently either way. <strong>The risk is entirely mine.</strong>
-      </p>
+      <div class="guarantee-num">30</div>
+      <div class="guarantee-label">Day money-back guarantee</div>
+      <p>Everything is running within 7 days. If 20 new covers don't come through the door in the first 30 days, we return the full budget. No questions asked.</p>
+      <div class="guarantee-fine">The contact list and everything we built is Vada's regardless. Your only cost: the budget that gets people through the door. Our time is free.</div>
     </div>
   </div>
 
-  <div class="cta-section">
-    <div class="cta-inner">
-      <h2>Ready to use the Michelin credential?</h2>
-      <p>15 minutes. I'll walk through exactly what I'd do for Vada — no pitch, no pressure. You decide if it makes sense.</p>
-      <div class="cta-buttons">
-        <a href="https://wa.me/353852122038?text=Hi%20Eduardo%2C%20I%20saw%20the%20audit%20for%20Vada%20and%20I%27m%20interested%20in%20a%20quick%20chat." class="cta-btn primary">WhatsApp me →</a>
-        <a href="mailto:Heineck96@hotmail.com?subject=Vada%20Audit&body=Hi%20Eduardo%2C%20I%20saw%20the%20audit%20and%20would%20like%20to%20chat." class="cta-btn secondary">Send an email</a>
-      </div>
-      <div class="cta-contact">
-        <strong>Eduardo · Coverline</strong> &nbsp;·&nbsp; +353 085 212 2038 &nbsp;·&nbsp; Heineck96@hotmail.com
-      </div>
+  <!-- CTA -->
+  <div style="max-width:780px;margin:0 auto;padding:0 40px 80px;">
+    <div class="cta-block">
+      <h3>Worth a conversation?</h3>
+      <p>No pitch. No obligation. DM us on Instagram and we'll go from there.</p>
+      <a class="cta-btn" href="https://www.instagram.com/coverline.dublin/">→ DM @coverline.dublin</a>
     </div>
   </div>
 
   <footer>
-    <div>
-      <div class="footer-brand">Coverline</div>
-      <div style="margin-top:4px;">Growth System for independent restaurants</div>
+    <div class="footer-logo">Coverline</div>
+    <div class="footer-meta">
+      Independent Dublin restaurants only<br>
+      coverline.netlify.app
     </div>
-    <div>Prepared for Vada · Brunswick Street, Stoneybatter, Dublin 7</div>
   </footer>
 
 </body>
